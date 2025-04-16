@@ -7,6 +7,9 @@ import google.generativeai as genai
 import tempfile
 import os
 import getpass
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Set API keys from terminal prompt if not already set
 if not os.environ.get("GOOGLE_API_KEY"):

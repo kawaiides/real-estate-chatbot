@@ -1,6 +1,6 @@
 export const POST = async (request) => {
   try {
-    const backendUrl = 'http://localhost:8000/api/chat';
+    const backendUrl = 'http://15.207.222.191/api/chat';
     const contentType = request.headers.get('content-type') || '';
 
     let headers = {};

@@ -86,14 +86,25 @@ def handle_agent2(query: str) -> str:
 # Endpoint with optional image and flexible input
 @app.post("/api/chat")
 async def chat_endpoint(request: Request, image: Optional[UploadFile] = File(None), text: Optional[str] = Form(None)):
+    # Handle JSON payloads
     if request.headers.get("content-type", "").startswith("application/json"):
         json_data = await request.json()
         text = json_data.get("text", "")
 
-    if not text:
-        return JSONResponse(content={"error": "Text input is required."}, status_code=400)
+    # If neither text nor image is provided
+    if not text and not image:
+        return JSONResponse(content={"error": "Either text or image must be provided."}, status_code=400)
 
-    # Handle image if provided
+    # If only image is provided
+    if image and not text:
+        with tempfile.NamedTemporaryFile(delete=False) as tmp:
+            tmp.write(await image.read())
+            tmp_path = tmp.name
+        response = handle_agent1("Image submitted for analysis", tmp_path)
+        os.unlink(tmp_path)
+        return {"response": response}
+
+    # If text is provided (with or without image)
     if image:
         with tempfile.NamedTemporaryFile(delete=False) as tmp:
             tmp.write(await image.read())

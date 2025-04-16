@@ -65,6 +65,11 @@ def handle_agent1(text: str, image_path: Optional[str]) -> str:
     1. Problem diagnosis
     2. Recommended solutions
     3. Suggested professionals to contact
+
+    Example Interaction:
+    User: “What’s wrong with this wall?” (User uploads image)
+    Agent 1: “It appears there is mould growth near the ceiling. This might be due to high
+    humidity or a leak. I recommend checking for water seepage and using a dehumidifier.”
     """
     response = model.generate_content(prompt)
     return response.text
@@ -79,6 +84,11 @@ def handle_agent2(query: str) -> str:
     - Landlord/tenant responsibilities
     - Location-specific variations (ask for location if needed)
     - Practical resolution steps
+
+    User: “Can my landlord evict me without notice?”
+    Agent 2: “In most jurisdictions, landlords must give written notice before
+    eviction, unless it’s an emergency situation like non-payment or illegal activity.
+    Please let me know your city or region for more accurate info.”
     """
     response = model.generate_content(prompt)
     return response.text

@@ -1,5 +1,6 @@
 // pages/index.jsx
 "use client";
+import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -117,7 +118,7 @@ export default function ChatInterface() {
           ? { ...session, messages: [...session.messages, assistantMessage] }
           : session
       );
-    } catch (error) {
+    } catch {
       const errorMessage = {
         id: Date.now() + 1,
         text: 'Error: Could not get response',
@@ -187,11 +188,13 @@ export default function ChatInterface() {
                 }`}
               >
                 {message.image && (
-                  <img
-                    src={message.image}
-                    alt="Uploaded content"
-                    className="mb-2 rounded-lg max-w-xs max-h-48 object-cover"
-                  />
+                  <Image
+                  src={message.image}
+                  alt="Uploaded content"
+                  width={300}
+                  height={200}
+                  className="mb-2 rounded-lg object-cover"
+                />
                 )}
                 <Markdown
                   remarkPlugins={[remarkGfm]}
@@ -269,9 +272,11 @@ export default function ChatInterface() {
         </div>
         {selectedImage && (
           <div className="mt-2 relative">
-            <img
+            <Image
               src={selectedImage}
               alt="Selected preview"
+              width={96}
+              height={96}
               className="h-24 w-24 object-cover rounded-lg"
             />
             <button

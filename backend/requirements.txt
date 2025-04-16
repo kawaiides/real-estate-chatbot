@@ -1,0 +1,10 @@
+fastapi
+langchain
+langchain-community
+openai
+google-cloud-vision
+python-dotenv
+pydantic
+typing
+python-multipart
+google-generativeai
